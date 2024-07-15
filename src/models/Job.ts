@@ -42,6 +42,9 @@ const JobSchema = new Schema({
 
    
     
-});
+},{
+  timestamps:true,
+}
+);
 
 export const JobModel = models?.Job || model('Job', JobSchema);

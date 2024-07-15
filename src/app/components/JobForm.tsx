@@ -39,7 +39,7 @@ export default function JobForm({orgId}:{orgId:string}){
             
             <TextField.Root name='title' className="border" placeholder="Job title"/>
             
-            <div className="grid grid-cols-3 gap-6 *:grow">
+            <div className="grid sm:grid-cols-3 gap-6 *:grow">
             <div>
                 Remote?
                 <RadioGroup.Root defaultValue= 'hybrid' name="remote">
@@ -71,7 +71,7 @@ export default function JobForm({orgId}:{orgId:string}){
             
             <div>
                 Location
-                <div className='flex gap-4 *:grow'>
+                <div className='flex flex-col md:flex-row gap-4 *:grow'>
                 <CountrySelect
               defaultValue={countryId ? {id:countryId,name:countryName} : 0}
               onChange={(e:any) => {
@@ -103,7 +103,7 @@ export default function JobForm({orgId}:{orgId:string}){
                
                
             </div>
-            <div className="flex ">
+            <div className="sm:flex ">
                 <div className='w-1/3'>
                     <h3>Job icon</h3>
                     <ImageUpload name="jobIcon" icon={faImage} />
