@@ -2,15 +2,16 @@
 import {Button} from '@radix-ui/themes';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSpinner, IconDefinition} from '@fortawesome/free-solid-svg-icons';
-import { useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
-export default function ImageUpload({icon}:{icon:IconDefinition}){
+export default function ImageUpload({name,icon}:{name:string;icon:IconDefinition}){
     const fileInRef = useRef<HTMLInputElement>(null);
     const [isUploading, setIsUploading] = useState(false);
+    const [isImageLoading,setIsImageLoading] = useState(false);
     const[url,setUrl] = useState('');
-
-    async function upload(ev:Event){
+    
+    async function upload(ev:ChangeEvent<HTMLInputElement>){
         const input= ev.target as HTMLInputElement;
         console.log(input);
         if(input &&input.files?.length && input.files?.length>0){
@@ -22,32 +23,35 @@ export default function ImageUpload({icon}:{icon:IconDefinition}){
            if(response.data.url){
             setUrl(response.data.url);
             setIsUploading(false);
+            setIsImageLoading(true);
 
            }
         }
 
     }
+    const imgLoading= (isUploading|| isImageLoading);
 
     return(
         <>
         <div className='bg-gray-100 rounded-md size-24 inline-flex items-center content-center justify-center'>
-                    {isUploading&&(
+                    {imgLoading&&(
                         <FontAwesomeIcon icon={faSpinner} className='text-gray-400 animate-spin'/>
 
                     )}
                     {!isUploading && url&&(
                      <Image src={url} alt={'uploaded image'} width={1024} height={1024} 
+                     onLoadingComplete={()=> setIsImageLoading(false)}
                      className="w-auto h-auto max-w-24 max-h-24"/>
                     )}  
-                    {!isUploading && !url&&(
+                    {!imgLoading && !url&&(
                         <FontAwesomeIcon icon={icon} className='text-gray-400'/>
 
                     )}
                     </div>
-                    
+                    <input type="hidden" value={url} name={name}/>
                     <div className="mt-2">
                         <input 
-                        onChange={upload}
+                        onChange={ev => upload(ev)}
                         ref={fileInRef} 
                         type="file" 
                         className='hidden' />

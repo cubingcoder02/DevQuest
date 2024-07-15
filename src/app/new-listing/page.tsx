@@ -5,7 +5,13 @@ import { createCompany } from "../actions/workosActions";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-export default async function NewListingPage(){
+
+type PageProps={
+    params:{
+        orgId:string;
+    }
+};
+export default async function NewListingForOrgPage(props:PageProps){
 
 
 

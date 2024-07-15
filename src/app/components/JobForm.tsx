@@ -11,17 +11,33 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faImage, faMobile, faPerson, faPhone, faStar, faUser } from '@fortawesome/free-solid-svg-icons';
 import ImageUpload from './ImageUpload';
+//import { redirect } from 'next/dist/server/api-utils';
+import { redirect } from 'next/navigation';
+import { saveJobAction } from '../actions/jobActions';
 
-export default function JobForm(){
-    const [countryid, setCountryid] = useState(0);
-    const [stateid, setstateid] = useState(0);
+export default function JobForm({orgId}:{orgId:string}){
+    const [countryId, setCountryId] = useState(0);
+    const [stateId, setStateId] = useState(0);
+    const[cityId,setCityId] = useState(0);
+    const[countryName,setCountryName]= useState('');
+    const[stateName,setStateName]= useState('');
+    const[cityName,setCityName]= useState('');
+
+    async function handleSaveJob(data:FormData){
+        data.set('country',countryName.toString());
+        data.set('state',stateName.toString());
+        data.set('city',cityName.toString());
+        data.set('orgId',orgId);
+        const jobDoc = await saveJobAction(data);  
+        redirect(`/jobs/${jobDoc.orgId}`);
+    }
     return(
         <Theme>
          <form 
-            action=""
+            action={handleSaveJob}
             className="container mt-6 flex flex-col gap-4">
             
-            <TextField.Root className="border" placeholder="Job title"/>
+            <TextField.Root name='title' className="border" placeholder="Job title"/>
             
             <div className="grid grid-cols-3 gap-6 *:grow">
             <div>
@@ -36,14 +52,14 @@ export default function JobForm(){
                 Full time?
                 <RadioGroup.Root defaultValue='full'name="type">
                 <RadioGroup.Item value="project">Project</RadioGroup.Item>
-                <RadioGroup.Item value="parsst">Part-time</RadioGroup.Item>
+                <RadioGroup.Item value="part-time">Part-time</RadioGroup.Item>
                 <RadioGroup.Item value="full">Full-time</RadioGroup.Item>
                 </RadioGroup.Root>
             </div>
             <div>
                 Salary(per annum)
                  
-                <TextField.Root>
+                <TextField.Root name='salary'>
                     <TextField.Slot>
                             ₹
                     </TextField.Slot>
@@ -57,29 +73,32 @@ export default function JobForm(){
                 Location
                 <div className='flex gap-4 *:grow'>
                 <CountrySelect
-                    onChange={(e) => {
-                    setCountryid(e.id);
-                    }}
-                    placeHolder="Select Country"
-                />
-                
-                <StateSelect
-                    countryid={countryid}
-                    onChange={(e) => {
-                    setstateid(e.id);
-                    }}
-                    placeHolder="Select State"
-                />
-                
-                <CitySelect
-                    countryid={countryid}
-                    stateid={stateid}
-                    onChange={(e) => {
-                    console.log(e);
-                    }}
-                    placeHolder="Select City"
-                />
-
+              defaultValue={countryId ? {id:countryId,name:countryName} : 0}
+              onChange={(e:any) => {
+                setCountryId(e.id);
+                setCountryName(e.name);
+              }}
+              placeHolder="Select Country"
+            />
+            <StateSelect
+              defaultValue={stateId ? {id:stateId,name:stateName} : 0}
+              countryid={countryId}
+              onChange={(e:any) => {
+                setStateId(e.id);
+                setStateName(e.name);
+              }}
+              placeHolder="Select State"
+            />
+            <CitySelect
+              defaultValue={cityId ? {id:cityId,name:cityName} : 0}
+              countryid={countryId}
+              stateid={stateId}
+              onChange={(e:any) => {
+                setCityId(e.id);
+                setCityName(e.name);
+              }}
+              placeHolder="Select City"
+            />
                 </div>
                
                
@@ -87,26 +106,26 @@ export default function JobForm(){
             <div className="flex ">
                 <div className='w-1/3'>
                     <h3>Job icon</h3>
-                    <ImageUpload icon={faImage}/>
+                    <ImageUpload name="jobIcon" icon={faImage} />
                 </div>
                 <div className='grow flex flex-col gap-1'>
                     <h3>Contact person</h3>
                     <div className='flex gap-2'>
                         <div className=''>
-                        <ImageUpload icon={faUser}/>
+                        <ImageUpload name="contactPhoto" icon={faUser}/>
                         </div>
                         <div className='grow'>
-                         <TextField.Root placeholder='John Doe'>
+                         <TextField.Root placeholder='John Doe' name='contactName'>
                             <TextField.Slot>
                                 <FontAwesomeIcon icon={faUser}/>
                             </TextField.Slot>
                          </TextField.Root>
-                         <TextField.Root placeholder='Phone' type='tel'>
+                         <TextField.Root placeholder='Phone' type='tel' name='contactPhone'>
                             <TextField.Slot>
                                 <FontAwesomeIcon icon={faPhone}/>
                             </TextField.Slot>
                          </TextField.Root>
-                         <TextField.Root placeholder='Email' type='email'>
+                         <TextField.Root placeholder='Email' type='email' name='contactEmail'>
                             <TextField.Slot>
                                 <FontAwesomeIcon icon={faEnvelope}/>
                             </TextField.Slot>
@@ -115,7 +134,7 @@ export default function JobForm(){
                     </div>
                 </div>
             </div>           
-            <TextArea className="border" placeholder="Job description" resize="vertical"/>
+            <TextArea className="border" placeholder="Job description" resize="vertical" name='description'/>
             <div className='flex justify-center'>
             <Button size='3'>
                 <span className="px-8">Save</span>
