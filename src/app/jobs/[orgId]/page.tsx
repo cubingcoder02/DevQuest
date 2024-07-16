@@ -3,6 +3,7 @@ import { JobModel } from "@/models/Job";
 import { getUser } from "@workos-inc/authkit-nextjs";
 import { AutoPaginatable, OrganizationMembership, WorkOS } from "@workos-inc/node";
 import mongoose from "mongoose";
+import "react-country-state-city/dist/react-country-state-city.css";
 
 type PageProps={
     params:{

@@ -1,3 +1,4 @@
+import JobForm from "@/app/components/JobForm";
 import { JobModel } from "@/models/Job";
 import { getUser } from "@workos-inc/authkit-nextjs";
 import { WorkOS } from "@workos-inc/node";
@@ -30,7 +31,7 @@ export default async function EditJobPage(pageProps:PageProps){
     }
     return(
         <div>
-        {jobId}
+        <JobForm orgId={jobDoc.orgId} jobDoc={jobDoc}/>
         </div>
     )
 }
