@@ -12,7 +12,7 @@ export default function Hero(){
                 <input type="search" 
                     className="border border-gray-400 w-full py-2 px-3 rounded-md" 
                     placeholder="Search Phrase.."/>            
-                <button className="bg-blue-600 text-white py-2 px-4 rounded-md">
+                <button className=" bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition duration-300 py-2 px-4 rounded-md">
                     Search
                 </button>
             </form>

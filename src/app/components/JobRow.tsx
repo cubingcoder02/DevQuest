@@ -1,11 +1,15 @@
-import type { Job } from "@/models/Job";
+'use client';
+import { JobModel, type Job } from "@/models/Job";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TimeAgo from "./TimeAgo";
 import Link from "next/link";
+import axios from "axios";
 
 
-export default async function JobRow({jobDoc}:{jobDoc:Job}){
+
+export default  function JobRow({jobDoc}:{jobDoc:Job}){
+
     
 
     return(
@@ -22,19 +26,32 @@ export default async function JobRow({jobDoc}:{jobDoc:Job}){
             </div>
             <div className="grow sm:flex">
                 <div className="grow">
-                    <div className="text-gray-500 text-sm">{jobDoc.orgName}</div>
-                    <div className="font-bold text-lg mb-1">{jobDoc.title}</div>
-                    <div className=" text-gray-00 text-sm capitalize">
-                        {jobDoc.remote}{' '} &middot;{' '} 
-                        {jobDoc.city},{jobDoc.country}{' '}
-                         &middot;{' '}
-                        {jobDoc.type}-time{' '}
+                    <div>
+                    <Link  href={`/jobs/${jobDoc.orgId}`} className="hover:underline text-gray-500 text-sm">{jobDoc.orgName}</Link>
+                    </div>
+                    <div className="font-bold text-lg mb-1">
+                        <Link className="hover:underline" href={'/show/'+jobDoc._id}>{jobDoc.title}</Link>
+                        
+                        </div>
+                   
+                   <div className=" text-gray-00 text-sm capitalize">
+                        {jobDoc.remote}
+                        {' '} &middot;{' '} 
+                        {jobDoc.city},{jobDoc.country}
+                        {' '}&middot;{' '}
+                        {jobDoc.type}-time
                         {jobDoc.isAdmin &&(
                             <>
                             {' '} &middot;{' '} 
                             <Link href={'/jobs/edit/'+jobDoc._id} >Edit</Link >
                             {' '} &middot;{' '} 
-                            <button> delete</button>
+                            <button type ="button"
+                            onClick={ async ()=>{
+                                await axios.delete('/api/jobs?id='+jobDoc._id);
+                                window.location.reload();
+                            }}> 
+                            delete
+                            </button>
                             </>
                         )}
                     </div>
