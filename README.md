@@ -31,8 +31,6 @@ You can check out ![the Next.js GitHub repository]
 
 ## Deployment: Not logged in
 
-![Logged out home page](screenshots/out-post.png)
-
 When a new user/logged out user opens the page, it shows recent jobs ordered based on date posted.
 
 ![Logged out post a job](screenshots/out-post.png)
