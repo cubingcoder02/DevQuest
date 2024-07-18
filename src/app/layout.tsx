@@ -23,7 +23,7 @@ export default function RootLayout({
         <Header/>
         {children}
         <footer className="container py-8 text-gray-500">
-          Job Board &copy; 2024 - All rights reserved
+          DevQuest &copy; 2024 - All rights reserved
         </footer>    
       </body>
     </html>

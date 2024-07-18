@@ -11,7 +11,7 @@ type PageProps={
 };
 export default async function EditJobPage(pageProps:PageProps){
     const jobId = pageProps.params.jobId;
-    mongoose.connect(process.env.MONGO_URI as string);
+    await mongoose.connect(process.env.MONGO_URI as string);
     const jobDoc= await JobModel.findById(jobId);
     if(!jobDoc){
         return 'Not found';

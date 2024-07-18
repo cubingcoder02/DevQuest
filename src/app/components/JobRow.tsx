@@ -22,7 +22,7 @@ export default  function JobRow({jobDoc}:{jobDoc:Job}){
             <div className="content-center">
                 <img 
                 className="size-12"
-                src="https://www.freepnglogos.com/uploads/spotify-logo-png/file-spotify-logo-png-4.png" alt="" />
+                src={jobDoc?.jobIcon} alt="" />
             </div>
             <div className="grow sm:flex">
                 <div className="grow">

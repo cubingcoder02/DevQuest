@@ -23,7 +23,7 @@ export default async function NewListingForOrgPage(props:PageProps){
 
     if(!user){
         return(
-            <div className="container">
+            <div className="container mt-8 font-bold">
                 You need to be logged in to post a job
             </div>
         )
@@ -75,7 +75,7 @@ export default async function NewListingForOrgPage(props:PageProps){
                 <Link
                 className="inline-flex gap-2 items-center bg-gray-200 px-4 py-2 rounded-md mt-6"
                  href={'/new-company'}>
-                Create a new company
+                Add a company
                 <FontAwesomeIcon className="h-4"icon={faArrowRight} />
                 </Link>
             </div>

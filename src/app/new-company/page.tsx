@@ -14,7 +14,7 @@ export default async function NewCompanyPage(){
     }
     return(
         <div className="container">
-            <h2 className="text-lg mt-6"> Create a new Company</h2>
+            <h2 className="text-lg mt-6"> Add a Company</h2>
                 <p className="text-gray-500 text-sm mb-2">To create a job listing you need to register a company </p>
                     
                 <form 
@@ -27,7 +27,7 @@ export default async function NewCompanyPage(){
                     type="text" 
                     placeholder="company name"/>
                     <button type="submit" className="flex gap-2 items-center bg-gray-200 px-4 py-2 roudned-md"> 
-                        Create company 
+                        Add company 
                     </button>
                 </form>      
         </div>

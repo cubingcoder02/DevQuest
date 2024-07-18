@@ -52,6 +52,12 @@ const JobSchema = new Schema({
   timestamps:true,
 }
 );
+const mongo = require('mongoose');
+
+mongoose.connect(process.env.MONGO_URI as string)
+.then(() => console.log('Connected to MongoDB'))
+.catch(err => console.error('Failed to connect to MongoDB:', err));
+
 export async function addOrgAndUserData(jobsDocs:Job[], user:User|null){
   jobsDocs = JSON.parse(JSON.stringify(jobsDocs));
   await mongoose.connect(process.env.MONGO_URI as string);
