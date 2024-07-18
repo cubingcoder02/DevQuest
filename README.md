@@ -37,16 +37,18 @@ When a new user/logged out user opens the page, it shows recent jobs ordered bas
 
 User needs to be logged in to post a job. However an user does not need to be logged in to view the job description and application details
 
-![Sign in](screenshots/sign-in.png)
 Sign in page that appears when Login is clicked. User can also login through Gmail and other services. Security and structure of this page is maintained by WorkOS. It is used to keep track of users and privileges.
 
-![Sign up](screenshots/signup.png)
+![Sign in](screenshots/sign-in.png)
 
 Sign up page for creating an account. 
 
-![Description](screenshots/description-page.png)
+![Sign up](screenshots/signup.png)
 
 When a job title from a listing is clicked, the user is redirected to this page, where they can access the job description and contact information. Login not required
+
+![Description](screenshots/description-page.png)
+
 
 
 
